@@ -1,0 +1,7 @@
+%h1 All posts
+
+- @posts.each_with_index do |post, index|
+  = "#{index + 1}. "
+  = link_to post.title, post
+  = link_to 'Delete', post, method: :delete
+  %br
