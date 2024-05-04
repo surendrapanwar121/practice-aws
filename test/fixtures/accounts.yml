@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  status: MyString
+  country: MyString
+  default_helpdek_url: MyText
+  service_desk_name: MyText
+
+two:
+  name: MyString
+  description: MyText
+  status: MyString
+  country: MyString
+  default_helpdek_url: MyText
+  service_desk_name: MyText
