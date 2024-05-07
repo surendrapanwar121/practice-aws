@@ -14,7 +14,7 @@ const Hello = ({title, body}) => {
     else setName(e.target.value)
   }
   return (
-    <div className='container'>
+    <div className='hello-container'>
       <input onChange={handleChange} placeholder='Type your name here' />
       <div>Name: {name}</div>
       <div>Title: {title}</div>

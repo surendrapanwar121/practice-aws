@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  admin: false
+  portal: false
+  description: MyString
+  account: one
+
+two:
+  name: MyString
+  admin: false
+  portal: false
+  description: MyString
+  account: two
