@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_04_062522) do
+ActiveRecord::Schema.define(version: 2024_05_04_150752) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "status"
     t.string "country"
-    t.text "default_helpdek_url"
+    t.text "default_helpdesk_url"
     t.text "service_desk_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "owner_id"
+    t.string "subdomain"
     t.index ["owner_id"], name: "index_accounts_on_owner_id"
   end
 
@@ -73,8 +74,7 @@ ActiveRecord::Schema.define(version: 2024_05_04_062522) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "name"
     t.string "password_digest"
     t.string "password_confirmation"
     t.string "activation_code"

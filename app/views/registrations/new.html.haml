@@ -1,0 +1,30 @@
+%h4 New Account Sign Up
+= form_with model: @account, url: registrations_path do |f|
+  - if @all_error_messages
+    .error-messages
+      %ul
+        - @all_error_messages.each do |msg|
+          %li= msg
+  %br
+  %p Choose a name & country for your account
+  = f.label :account_name
+  = f.text_field :name
+  %br
+  = f.label :country
+  = f.text_field :country
+  = f.hidden_field :subdomain, value: @subdomain
+  %br
+  %p Create your administrator login
+  = f.fields_for :users do |user_fields|
+    = user_fields.label :admin_name
+    = user_fields.text_field :name
+    %br
+    = user_fields.label :email
+    = user_fields.email_field :email, placeholder: 'Email'
+    %br
+    = user_fields.label :password
+    = user_fields.password_field :password, placeholder: 'Password'
+    = user_fields.password_field :password_confirmation, placeholder: 'Confirm Password'
+    %br
+    %br
+  = f.submit 'Create Account'

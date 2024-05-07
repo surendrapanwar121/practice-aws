@@ -6,4 +6,6 @@ class Role < ApplicationRecord
 
   belongs_to :account
   has_many :users
+
+  scope :admin, -> { find_by(name: ADMIN) }
 end

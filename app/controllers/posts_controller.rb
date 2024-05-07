@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
-  before_action :post_params, only: [:create]
   before_action :find_post, only: [:show, :destroy]
 
-  def index 
+  def index
     @posts = Post.all
   end
 
