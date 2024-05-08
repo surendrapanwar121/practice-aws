@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ClientAppVariables
+
   before_action :current_account
   before_action :authenticate_user!
   helper_method :current_user

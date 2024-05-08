@@ -8,6 +8,7 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = Gon::Base.render_data
   %body
     = render partial: 'application/react_app.haml', locals: { component: 'Navbar/NavbarContainer'}
     - flash.each do |type, msg|
