@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
+  include ClientAppVariables
+
   before_action :current_account
   before_action :authenticate_user!
   helper_method :current_user
   helper_method :current_account
 
-  ALLOWED_PATH_WITHOUT_LOGIN = ['/login', '/logout']
+  ALLOWED_PATH_WITHOUT_LOGIN = ['/login', '/logout', '/registration']
 
   def authenticate_user!
     redirect_to login_path unless current_user || ALLOWED_PATH_WITHOUT_LOGIN.include?(request.path)

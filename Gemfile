@@ -28,13 +28,14 @@ gem 'bcrypt', '~> 3.1.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-# For React
 gem 'react-rails'
-# For Haml
 gem 'haml'
 gem 'haml-rails'
 gem "dotenv-rails", "~> 3.1"
 gem "aws-sdk-s3", "~> 1.148"
+gem "gon", "~> 6.4"
+gem "city-state", "~> 1.1"
+gem "countries", "~> 6.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
