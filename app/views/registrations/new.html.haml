@@ -1,5 +1,5 @@
 %h4 New Account Sign Up
-= form_with model: @account, url: registrations_path do |f|
+= form_with model: @account, url: registration_path do |f|
   - if @all_error_messages
     .error-messages
       %ul
@@ -11,7 +11,7 @@
   = f.text_field :name
   %br
   = f.label :country
-  = f.text_field :country
+  = f.select :country, options_for_select(ISO3166::Country.countries.map { |c| ["#{c.emoji_flag} #{c.iso_short_name}", c.iso_short_name] }), class: 'country-select'
   = f.hidden_field :subdomain, value: @subdomain
   %br
   %p Create your administrator login

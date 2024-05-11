@@ -7,7 +7,7 @@ const propTypes = {
   body: PropTypes.string
 }
 
-const Hello = ({title, body}) => {
+const Hello = ({ title, body }) => {
   const [name, setName] = useState('Surendra Panwar')
   const handleChange = (e) => {
     if (!e.target.value.length) setName('Surendra Panwar')

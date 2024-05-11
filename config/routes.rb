@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   resources :posts
-  resources :registrations, only: [:new, :create]
+  # resources :registrations, only: [:new, :create]
+  get "/registration" => "registrations#new", as: :registration
+  post "/registration" => "registrations#create"
   resources :users
   # resources :sessions, only: [:new, :create]
   get "/login(.:format)" => "sessions#new", as: :login
