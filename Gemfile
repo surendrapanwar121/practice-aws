@@ -36,6 +36,7 @@ gem "aws-sdk-s3", "~> 1.148"
 gem "gon", "~> 6.4"
 gem "city-state", "~> 1.1"
 gem "countries", "~> 6.0"
+gem "active_model_serializers", "~> 0.10.14"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

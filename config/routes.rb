@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get "/registration" => "registrations#new", as: :registration
   post "/registration" => "registrations#create"
   resources :users
-  # resources :sessions, only: [:new, :create]
   get "/login(.:format)" => "sessions#new", as: :login
   post "/login(.:format)" => "sessions#create"
   get "/logout(.:format)" => "sessions#destroy", as: :logout
