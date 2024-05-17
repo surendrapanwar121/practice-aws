@@ -1,12 +1,16 @@
-%h1 Login page
-= form_with model: @user, url: login_path do |f|
-  %div
-    = f.label :email
-    %br
-    = f.email_field :email
-  %div
-    = f.label :password
-    %br
-    = f.password_field :password
-  %p
-    = f.submit 'Login'
+-# below code is for login via partial, also change params[:session][:password] to params[:user][:password]
+-# %h1 Login page
+-# = form_with model: @user, url: login_path do |f|
+-#   %div
+-#     = f.label :email
+-#     %br
+-#     = f.email_field :email
+-#   %div
+-#     = f.label :password
+-#     %br
+-#     = f.password_field :password
+-#   %p
+-#     = f.submit 'Login'
+= render partial: 'application/react_app.haml',
+ locals: { component: 'Form/FormContainer',
+ props: { fields: @serialized_user, submitURL: '/login', heading: 'Login', action: 'post' } }

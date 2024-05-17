@@ -18,7 +18,7 @@ const Hello = ({ title, body }) => {
       <input onChange={handleChange} placeholder='Type your name here' />
       <div>Name: {name}</div>
       <div>Title: {title}</div>
-      <div>Account: {gon.current_account.name}</div>
+      <div>Account: {gon.current_account ? gon.current_account.name : 'Find Me!'}</div>
       <div>Body: {body}</div>
     </div>
   )

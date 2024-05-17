@@ -3,6 +3,11 @@ class UsersController < ApplicationController
     @users = User.all_users
   end
 
+  def show
+    user = User.find(params[:id])
+    render json: user
+  end
+
   def new
     @user = User.new
   end
