@@ -9,11 +9,11 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      render json: { message: 'Login Successfull!!', error: nil, redirect_link: '/' }
+      render json: { message: 'Login Successfull!!', errors: nil, redirect_link: '/' }
       # flash[:notice] = 'Login Successfull!!'
       # redirect_to root_path
     else
-      render json: { message: nil, errors: ['Login Failed!!'], redirect_link: '/login' }
+      render json: { message: nil, errors: 'Login Failed!!', redirect_link: '/login' }
       # flash[:error] = 'Login Failed!!'
       # render :new
     end

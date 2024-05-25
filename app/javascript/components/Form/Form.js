@@ -1,16 +1,19 @@
 import React, { useState } from "react"
 import PropTypes from 'prop-types'
-import './Form.scss'
-import { postForm } from "./form_api"
 import { useNavigate, Navigate } from 'react-router-dom'
+import { NOTIFICATION_LEVEL } from "../constants"
+import { notificationsBuilder } from "../common_components/utilities/notificationBuilder"
+import { postForm } from "./form_api"
+import './Form.scss'
 
 const propTypes = {
   fields: PropTypes.array.isRequired,
   submitURL: PropTypes.string.isRequired,
-  action: PropTypes.string
+  action: PropTypes.string,
+  handleFormErrors: PropTypes.func
 }
 
-const Form = ({ fields, submitURL, action }) => {
+const Form = ({ fields, submitURL, action, handleFormErrors }) => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({});
 
@@ -23,15 +26,17 @@ const Form = ({ fields, submitURL, action }) => {
     event.preventDefault()
     postForm({ action, url: submitURL, payload: formData })
       .then((result) => {
-        console.log('API call succeeded:', result);
-        if(result.redirect_link) {
-          // navigate('/')
+        if(!result.errors) {
           navigate(-1)
+          // navigate(result.redirect_link)
           // return <Navigate to='/' />
+        } else {
+          handleFormErrors(notificationsBuilder(result.errors, NOTIFICATION_LEVEL.ERROR))
         }
       })
-      .catch((error) => {
-        console.log('API call failed:', error);
+      .catch((errors) => {
+        console.log('API call failed:', errors);
+        handleFormErrors(notificationsBuilder('An Unexpected error ocurred!', NOTIFICATION_LEVEL.ERROR))
       })
   }
 

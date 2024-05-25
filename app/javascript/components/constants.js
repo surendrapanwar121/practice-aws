@@ -4,3 +4,10 @@ export const HTTP_METHODS = {
   PUT: 'put',
   DELETE: 'delete'
 }
+
+export const NOTIFICATION_LEVEL = {
+  ERROR: 'error',
+  INFO: 'info',
+  SUCCESS: 'success',
+  WARNING: 'warning',
+}

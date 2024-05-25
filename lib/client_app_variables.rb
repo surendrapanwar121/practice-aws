@@ -1,5 +1,4 @@
 module ClientAppVariables
-
   def self.included(klass)
     klass.before_action do
       if current_user
