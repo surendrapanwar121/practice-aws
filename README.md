@@ -1,2 +1,2 @@
-# practice-aws
-This repo is for the initial learning of AWS.
+# practice-project
+This repo is to explore more.
