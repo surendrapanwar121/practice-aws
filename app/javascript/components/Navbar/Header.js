@@ -19,7 +19,7 @@ const Header = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action2">Link</Nav.Link>
+            <Nav.Link href="/csv_list">CSV</Nav.Link>
             <Nav.Link href="#" disabled>
               Link
             </Nav.Link>
