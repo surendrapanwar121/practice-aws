@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   get "/login(.:format)" => "sessions#new", as: :login
   post "/login(.:format)" => "sessions#create"
   get "/logout(.:format)" => "sessions#destroy", as: :logout
+  get "/csv_list" => "generate_csv#index"
+  get "/download_csv" => "generate_csv#download_csv"
 end
