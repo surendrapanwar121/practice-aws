@@ -1,0 +1,10 @@
+%div.post-show-container{ style: 'background-color: #f9f9f9; padding: 20px;' }
+  %div.post-header
+    %h2= @post.title
+
+  %div.post-body
+    %p= @post.body
+
+  - if @post.image.attached?
+    %div.post-image
+      = image_tag @post.image, class: 'post-image'

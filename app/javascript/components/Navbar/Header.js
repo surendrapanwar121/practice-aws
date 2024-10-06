@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <Navbar expand="lg" bg="secondary" data-bs-theme="dark">
       <Container fluid>
-        <Navbar.Brand href="/">Samanage</Navbar.Brand>
+        <Navbar.Brand href="/">Wizzler</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -19,6 +19,8 @@ const Header = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
+            <Nav.Link href="/posts">Post</Nav.Link>
+            <Nav.Link href="/users">User</Nav.Link>
             <Nav.Link href="/csv_list">CSV</Nav.Link>
             <Nav.Link href="#" disabled>
               Link

@@ -1,7 +1,15 @@
-= @post.title
-%br
-= @post.body
-%br
-= image_tag @post.image.url
-%br
-= link_to 'back', '/posts'
+%div.post-show-container
+  %div.post-header
+    %h2= @post.title
+
+  %div.post-body
+    %p= @post.body
+
+  - if @post.image.attached?
+    %div.post-image
+      = image_tag @post.image, class: 'post-image'
+
+  %div.post-actions
+    = link_to 'Edit', edit_post_path(@post), class: 'btn btn-success'
+    = link_to 'Back', posts_path, class: 'btn btn-secondary'
+    = link_to 'Download PDF', post_path(@post, format: :pdf), class: 'btn btn-primary'

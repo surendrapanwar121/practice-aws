@@ -6,10 +6,16 @@ Rails.application.routes.draw do
   # resources :registrations, only: [:new, :create]
   get "/registration" => "registrations#new", as: :registration
   post "/registration" => "registrations#create"
-  resources :users
+  resources :users do
+    member do
+      get :enable
+      get :disable
+    end
+  end
   get "/login(.:format)" => "sessions#new", as: :login
   post "/login(.:format)" => "sessions#create"
   get "/logout(.:format)" => "sessions#destroy", as: :logout
+  get "/profile" => "users#profile"
   get "/csv_list" => "generate_csv#index"
   get "/download_csv" => "generate_csv#download_csv"
 end

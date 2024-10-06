@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
   def new
     session[:user_id] = nil if current_user
-    # @user = User.new
+    # @user = current_account.users.new
     @serialized_user = serialized_session_fields
   end
 
   def create
-    @user = User.find_by(email: params[:session][:email])
+    @user = current_account.users.find_by(email: params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
       render json: { message: 'Login Successfull!!', errors: nil, redirect_link: '/' }

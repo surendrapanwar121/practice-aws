@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_04_150752) do
+ActiveRecord::Schema.define(version: 2024_10_05_055037) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 2024_05_04_150752) do
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "status", default: 0, null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -92,6 +95,7 @@ ActiveRecord::Schema.define(version: 2024_05_04_150752) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "posts", "users"
   add_foreign_key "roles", "accounts"
   add_foreign_key "users", "accounts"
   add_foreign_key "users", "roles"
