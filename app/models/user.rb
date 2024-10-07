@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   belongs_to :account
   belongs_to :role
-  # has_one :role
+  has_many :posts
 
   has_secure_password :password, validations: true
   validates_uniqueness_of :email, case_sensitive: false, scope: :account_id

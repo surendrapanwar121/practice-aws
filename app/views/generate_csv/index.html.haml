@@ -1,24 +1,25 @@
-%h1.page-title CSV Export for Models
-%p.page-description Select a model from the dropdown below to download its CSV data.
+%div.csv-container
+  %h1.page-title CSV Export for Models
+  %p.page-description Select a model from the dropdown below to download its CSV data.
 
-.css_container
-  = form_with url: download_csv_path(format: :csv), method: :get, local: true do
-    .form-group
-      = label_tag :model, "Select Model", class: "form-label"
-      = select_tag :model, options_for_select(@csv_models.map { |model| [model.name, model.name] }), class: "form-control model-select", prompt: "Choose a model"
+  .css_container
+    = form_with url: download_csv_path(format: :csv), method: :get, local: true do
+      .form-group
+        = label_tag :model, "Select Model", class: "form-label"
+        = select_tag :model, options_for_select(@csv_models.map { |model| [model.name, model.name] }), class: "form-control model-select", prompt: "Choose a model"
 
-    .form-group.mt-4
-      = submit_tag "Download CSV", class: "btn btn-primary csv-download-btn", disabled: true, id: "csv-download-btn"
+      .form-group.mt-4
+        = submit_tag "Download CSV", class: "btn btn-primary csv-download-btn", disabled: true, id: "csv-download-btn"
 
-  %p.note.mt-5
-    Note: The downloaded CSV file will contain data for the selected model. You can open this file in spreadsheet software like Excel or Google Sheets.
+    %p.note.mt-5
+      Note: The downloaded CSV file will contain data for the selected model. You can open this file in spreadsheet software like Excel or Google Sheets.
 
-:javascript
-  document.addEventListener('DOMContentLoaded', function() {
-    var modelSelect = document.getElementById('model');
-    var downloadBtn = document.getElementById('csv-download-btn');
+  :javascript
+    document.addEventListener('DOMContentLoaded', function() {
+      var modelSelect = document.getElementById('model');
+      var downloadBtn = document.getElementById('csv-download-btn');
 
-    modelSelect.addEventListener('change', function() {
-      downloadBtn.disabled = !modelSelect.value;
+      modelSelect.addEventListener('change', function() {
+        downloadBtn.disabled = !modelSelect.value;
+      });
     });
-  });

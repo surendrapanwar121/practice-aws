@@ -1,5 +1,5 @@
 {
-  "name": "samanage",
+  "name": "wizzler",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.24.1",
