@@ -4,8 +4,8 @@ class User < ApplicationRecord
   has_many :posts
 
   has_secure_password :password, validations: true
-  validates_uniqueness_of :email, case_sensitive: false, scope: :account_id
-  validates :name, presence: true, uniqueness: true, length: { maximum: 50 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :account_id }
+  validates :name, presence: true, length: { maximum: 50 }
 
   after_create :set_default_role
 

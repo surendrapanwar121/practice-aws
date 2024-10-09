@@ -3,8 +3,7 @@ class Account < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :roles, dependent: :destroy
 
-  validates :name, uniqueness: true
-  validates :name, length: { maximum: 10 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 10 }
   validates :owner, presence: true, if: -> { owner_id_changed? }
 
   after_create :set_default_data
@@ -13,12 +12,6 @@ class Account < ApplicationRecord
 
   private
   def set_default_data
-    create_default_roles
-  end
-
-  def create_default_roles
-    Role::ALL_ROLES.each do |role|
-      roles << Role.find_or_create_by(name: role)
-    end
+    Role.create_default_roles(self)
   end
 end

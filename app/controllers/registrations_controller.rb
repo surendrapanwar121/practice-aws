@@ -1,8 +1,10 @@
 class RegistrationsController < ApplicationController
+  ALLOWED_ACCOUNT_TYPES = ['LegacyAccount', 'Organization']
+
   def new
     @account = Account.new
     @user = @account.users.build
-    @subdomain = request.subdomain
+    @allowes_account_types = ALLOWED_ACCOUNT_TYPES
   end
 
   def create
@@ -12,6 +14,7 @@ class RegistrationsController < ApplicationController
       @user = @account.users.build(user_params)
       @user.role = @account.roles.admin
       @user.save!
+      @account.organization_id = @account.id if @account.is_a?(Organization)
       @account.owner = @user
       @account.save!
       flash[:notice] = 'Account and user created successfully.'
@@ -27,7 +30,7 @@ class RegistrationsController < ApplicationController
   private
 
   def account_params
-    params.require(:account).permit(:name, :country, :subdomain)
+    params.require(:account).permit(:name, :country, :subdomain, :type)
   end
 
   def user_params
