@@ -8,4 +8,10 @@ class Role < ApplicationRecord
   has_many :users
 
   scope :admin, -> { find_by(name: ADMIN) }
+
+  def self.create_default_roles(account)
+    Role::ALL_ROLES.each do |role|
+      account.roles << account.roles.find_or_create_by(name: role)
+    end
+  end
 end

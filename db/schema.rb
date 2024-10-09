@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_05_055037) do
+ActiveRecord::Schema.define(version: 2024_10_08_195720) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 2024_10_05_055037) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "owner_id"
     t.string "subdomain"
+    t.string "type"
+    t.string "sector"
+    t.integer "organization_id"
     t.index ["owner_id"], name: "index_accounts_on_owner_id"
   end
 
@@ -75,6 +78,17 @@ ActiveRecord::Schema.define(version: 2024_10_05_055037) do
     t.index ["account_id"], name: "index_roles_on_account_id"
   end
 
+  create_table "user_roles", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
+    t.integer "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_user_roles_on_account_id"
+    t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "name"
@@ -82,21 +96,25 @@ ActiveRecord::Schema.define(version: 2024_10_05_055037) do
     t.string "password_confirmation"
     t.string "activation_code"
     t.datetime "activated_at"
-    t.boolean "deleted"
-    t.boolean "disabled"
-    t.integer "account_id", null: false
-    t.integer "role_id", null: false
+    t.boolean "deleted", default: false
+    t.boolean "disabled", default: false
+    t.integer "account_id"
+    t.integer "role_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "accounts", "accounts", column: "organization_id"
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "users"
   add_foreign_key "roles", "accounts"
+  add_foreign_key "user_roles", "accounts"
+  add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "users"
   add_foreign_key "users", "accounts"
   add_foreign_key "users", "roles"
 end
