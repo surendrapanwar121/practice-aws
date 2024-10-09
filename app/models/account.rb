@@ -12,6 +12,10 @@ class Account < ApplicationRecord
 
   private
   def set_default_data
+    create_default_roles
+  end
+
+  def create_default_roles
     Role.create_default_roles(self)
   end
 end

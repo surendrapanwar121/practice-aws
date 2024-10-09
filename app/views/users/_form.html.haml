@@ -29,6 +29,11 @@
       = f.password_field :password_confirmation, class: "form-control"
     %div.form-group
       = f.label :role, class: "form-label"
-      = f.select :role_id, current_account.roles.pluck(:name, :id), {}, class: "form-control"
+      - if current_account.is_a?(LegacyAccount)
+        = f.select :role_id, current_account.roles.pluck(:name, :id), {}, class: "form-control"
+      - else
+        = f.fields_for :user_roles do |user_role_fields|
+          = user_role_fields.select :role_id, current_account.roles.pluck(:name, :id), {}, class: "form-control"
+
     %div.form-group.submit-group
       = f.submit action_text

@@ -16,13 +16,16 @@ class UsersController < ApplicationController
 
 
   def create
-    @user = current_account.users.new(user_params)
-    if @user.save
+    ActiveRecord::Base.transaction do
+      @user = current_account.users.new(user_params)
+      @user.save!
+      @user.user_roles.create!(user_role_params.merge!(account: current_account)) unless current_account.is_a?(LegacyAccount)
       flash[:notice] = "User created successfully"
       redirect_to users_path
-    else
-      flash[:alert] = "User not created"
+    rescue => e
+      puts "#{e.message}"
       render :new, status: :unprocessable_entity
+      raise ActiveRecord::Rollback
     end
   end
 
@@ -51,6 +54,10 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :account_id, :role_id)
+  end
+
+  def user_role_params
+    params.require(:user).require(:user_roles).permit(:role_id)
   end
 
   def find_user

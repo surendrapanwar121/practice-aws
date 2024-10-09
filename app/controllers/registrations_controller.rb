@@ -14,7 +14,10 @@ class RegistrationsController < ApplicationController
       @user = @account.users.build(user_params)
       @user.role = @account.roles.admin
       @user.save!
-      @account.organization_id = @account.id if @account.is_a?(Organization)
+      unless @account.is_a?(LegacyAccount)
+        @account.organization_id = @account.id
+        @user.user_roles.create!(role: @account.roles.admin, account: @account)
+      end
       @account.owner = @user
       @account.save!
       flash[:notice] = 'Account and user created successfully.'
