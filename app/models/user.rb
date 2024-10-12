@@ -1,13 +1,13 @@
 class User < ApplicationRecord
   belongs_to :account
-  belongs_to :role
   has_many :posts
+  belongs_to :role, optional: true
+  has_many :user_roles, dependent: :destroy
+  has_many :roles, through: :user_roles
 
   has_secure_password :password, validations: true
-  validates_uniqueness_of :email, case_sensitive: false, scope: :account_id
-  validates :name, presence: true, uniqueness: true, length: { maximum: 50 }
-
-  after_create :set_default_role
+  validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :account_id }
+  validates :name, presence: true, length: { maximum: 50 }
 
   scope :all_users, -> { where(deleted: false) }
   scope :enabled, -> { where(disabled: false) }
@@ -19,7 +19,19 @@ class User < ApplicationRecord
    { attr_name: :account_id, new_attr_name: :Account, value: Proc.new { |account_id| Account.find_by(id: account_id).name } }
   )
 
-  def set_default_role
-    self.role ||= self.account.find_or_create_by(name: Role::REQUESTER)
+  def role
+    if account.is_a?(LegacyAccount)
+      super
+    else
+      roles.find_by(account_id: current_account.id)
+    end
+  end
+
+  def role_id
+    if account.is_a?(LegacyAccount)
+      super
+    else
+      role.id
+    end
   end
 end

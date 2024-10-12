@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :current_account
   before_action :authenticate_user!
+  before_action :set_current_controller
   helper_method :current_user
   helper_method :current_account
 
@@ -31,5 +32,13 @@ class ApplicationController < ActionController::Base
   def current_account
     @current_account ||= current_user.try(:account) || detect_account || :false
     @current_account == :false ? nil : @current_account
+  end
+
+  def current_controller
+    Thread.current[:current_controller]
+  end
+
+  def set_current_controller
+    Thread.current[:current_controller] = self
   end
 end

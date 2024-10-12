@@ -39,3 +39,9 @@
 yarn-debug.log*
 .yarn-integrity
 /.env
+
+# Ignore the Rails schema file.
+/db/schema.rb
+
+# Ignore the Gemfile.lock.
+/Gemfile.lock
