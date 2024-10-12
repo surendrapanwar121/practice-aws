@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       flash[:notice] = "User created successfully"
       redirect_to users_path
     rescue => e
-      puts "#{e.message}"
+      logger.error("User creation failed: #{e.class} - #{e.message}. Backtrace: #{e.backtrace}")
       render :new, status: :unprocessable_entity
       raise ActiveRecord::Rollback
     end

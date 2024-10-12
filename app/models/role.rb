@@ -4,14 +4,20 @@ class Role < ApplicationRecord
   REQUESTER = 'Requester'
   ALL_ROLES = [ADMIN, SERVICE_AGENT_USER, REQUESTER]
 
+  enum role_type: {
+    administrator: 0,
+    service_agent_user: 1,
+    requester: 2
+  }
+
   belongs_to :account
   has_many :users
 
-  scope :admin, -> { find_by(name: ADMIN) }
+  validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :account_id }
 
   def self.create_default_roles(account)
-    Role::ALL_ROLES.each do |role|
-      account.roles << account.roles.find_or_create_by(name: role)
+    ALL_ROLES.each_with_index do |role, index|
+      account.roles.find_or_create_by(name: role, role_type: index)
     end
   end
 end

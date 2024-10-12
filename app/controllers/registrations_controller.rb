@@ -12,11 +12,11 @@ class RegistrationsController < ApplicationController
       @account = Account.new(account_params)
       @account.save!
       @user = @account.users.build(user_params)
-      @user.role = @account.roles.admin
+      @user.role = @account.roles.administrator
       @user.save!
       unless @account.is_a?(LegacyAccount)
         @account.organization_id = @account.id
-        @user.user_roles.create!(role: @account.roles.admin, account: @account)
+        @user.user_roles.create!(role: @account.roles.administrator, account: @account)
       end
       @account.owner = @user
       @account.save!

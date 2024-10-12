@@ -1,3 +1,5 @@
+- roles = current_account.roles.pluck(:name, :id)
+
 %div.form-container
   %div.form-header
     - if action_text == 'Create'
@@ -30,10 +32,10 @@
     %div.form-group
       = f.label :role, class: "form-label"
       - if current_account.is_a?(LegacyAccount)
-        = f.select :role_id, current_account.roles.pluck(:name, :id), {}, class: "form-control"
+        = f.select :role_id, roles, {}, class: "form-control"
       - else
         = f.fields_for :user_roles do |user_role_fields|
-          = user_role_fields.select :role_id, current_account.roles.pluck(:name, :id), {}, class: "form-control"
+          = user_role_fields.select :role_id, roles, {}, class: "form-control"
 
     %div.form-group.submit-group
       = f.submit action_text
